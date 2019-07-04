@@ -8,6 +8,7 @@ require "rubicure"
 require "icalendar"
 require "date"
 require "holiday_jp"
+require "syslog/logger"
 
 class Object
   def to_pretty_json
@@ -77,6 +78,15 @@ class App < Sinatra::Base
   before do
     @json_options = {}
     @json_options[:json_encoder] = :to_pretty_json if params[:format] == "pretty"
+    @logger = Syslog::Logger.new('rubicure_api')
+  end
+
+  after do
+    @logger.info({request: {path: request.path, params: @params}})
+  end
+
+  error do |e|
+    @logger.error({class: e.class, message: e.message})
   end
 
   helpers do # rubocop:disable Metrics/BlockLength
