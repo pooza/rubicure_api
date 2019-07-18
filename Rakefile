@@ -12,12 +12,12 @@ task :default => "test"
 
 desc 'start'
 task :start do
-  sh 'puma'
+  sh 'bundle exec puma'
 end
 
 desc 'stop'
 task :stop do
-  Process.kill('TERM', File.read(File.join(dir, 'tmp/pids/puma.pid')).to_i)
+  Process.kill('TERM', File.read(File.join(dir, 'tmp/pids/puma.pid')).to_i) rescue nil
 end
 
 desc 'restart'

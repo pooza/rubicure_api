@@ -1,3 +1,5 @@
 port 3013
 daemonize true
-pidfile 'tmp/pids/puma.pid'
+
+dir = File.expand_path(File.dirname(File.dirname(__FILE__)))
+pidfile File.join(dir, 'tmp/pids/puma.pid')
