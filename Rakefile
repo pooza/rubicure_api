@@ -12,7 +12,7 @@ task :default => "test"
 
 desc 'start'
 task :start do
-  sh 'bundle exec puma'
+  sh 'puma'
 end
 
 desc 'stop'
