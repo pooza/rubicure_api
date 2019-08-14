@@ -13,6 +13,7 @@ gem "rubicure"
 gem "sinatra"
 gem "sinatra-contrib"
 gem "slim"
+gem "syslog-logger"
 
 group :development do
   gem "foreman", require: false

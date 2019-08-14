@@ -1,9 +1,7 @@
 # RubicureAPI
-API server for [Rubicure](https://github.com/sue445/rubicure)
+API server for [rubicure](https://github.com/sue445/rubicure)
 
-https://rubicure.herokuapp.com/
-
-[![Circle CI](https://circleci.com/gh/sue445/rubicure_api.svg?style=svg)](https://circleci.com/gh/sue445/rubicure_api)
+https://rubicure.precure.ml/
 
 ## Requirements
 * Ruby
@@ -15,16 +13,11 @@ bundle install
 
 ## Run
 ```sh
-bundle exec foreman s
-open http://localhost:3000/
+rake start
+open http://localhost:3013/
 ```
 
-## Setup Heroku
+## Stop
 ```sh
-heroku addons:create papertrail
-heroku addons:create rollbar
-heroku config:add ROLLBAR_ACCESS_TOKEN=XXXXXXXXXXXXXXX
+rake stop
 ```
-
-## Heroku deploy
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
