@@ -1,3 +1,6 @@
+ENV['BUNDLE_GEMFILE'] ||= File.join(File.expand_path(__dir__), 'Gemfile')
+
+require "bundler/setup"
 require "./app"
 require "rollbar"
 

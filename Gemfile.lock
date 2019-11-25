@@ -1,4 +1,14 @@
 GIT
+  remote: https://github.com/pooza/rubicure.git
+  revision: 028da9ac2deb3b5be661d9c52d66600c9492d068
+  branch: master.pooza
+  specs:
+    rubicure (1.2.5.1)
+      activesupport (>= 5.0.0)
+      hashie (>= 2.0.5)
+      sengiri_yaml (>= 0.0.2)
+
+GIT
   remote: https://github.com/sue445/onkcop
   revision: 12f80e6cde6074fa8aa3a36c676aa5d679231d8a
   branch: rubocop_0.72.0
@@ -32,7 +42,7 @@ GEM
     multi_json (1.14.1)
     mustermann (1.0.3)
     nio4r (2.5.2)
-    parallel (1.19.0)
+    parallel (1.19.1)
     parser (2.6.5.0)
       ast (~> 2.4.0)
     power_assert (1.1.5)
@@ -48,10 +58,6 @@ GEM
     rainbow (3.0.0)
     rake (13.0.1)
     rollbar (2.22.1)
-    rubicure (1.2.5)
-      activesupport (>= 5.0.0)
-      hashie (>= 2.0.5)
-      sengiri_yaml (>= 0.0.2)
     rubocop (0.76.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
@@ -61,7 +67,7 @@ GEM
       unicode-display_width (>= 1.4.0, < 1.7)
     rubocop-performance (1.5.1)
       rubocop (>= 0.71.0)
-    rubocop-rspec (1.36.0)
+    rubocop-rspec (1.37.0)
       rubocop (>= 0.68.1)
     ruby-progressbar (1.10.1)
     sengiri_yaml (0.0.3)
@@ -106,7 +112,7 @@ DEPENDENCIES
   rack-test
   rake
   rollbar
-  rubicure
+  rubicure!
   rubocop-performance
   sinatra
   sinatra-contrib
