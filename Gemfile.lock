@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/pooza/rubicure.git
-  revision: 010fd6eaedea2317058d6fece1dfa5864c8adba9
+  revision: 0df6551f2c64ddccd80d04614a73953bfa972392
   branch: master.pooza
   specs:
     rubicure (1.2.5.3)
@@ -10,8 +10,8 @@ GIT
 
 GIT
   remote: https://github.com/sue445/onkcop
-  revision: 12f80e6cde6074fa8aa3a36c676aa5d679231d8a
-  branch: rubocop_0.72.0
+  revision: 4576d831f4be9a0b049d18f043c9bb9b836031e8
+  branch: develop
   specs:
     onkcop (0.53.0.3)
       rubocop (>= 0.53.0)
@@ -34,7 +34,7 @@ GEM
     holiday_jp (0.7.1)
     i18n (1.7.0)
       concurrent-ruby (~> 1.0)
-    icalendar (2.5.3)
+    icalendar (2.6.0)
       ice_cube (~> 0.16)
     ice_cube (0.16.3)
     jaro_winkler (1.5.4)
@@ -58,7 +58,7 @@ GEM
     rainbow (3.0.0)
     rake (13.0.1)
     rollbar (2.22.1)
-    rubocop (0.76.0)
+    rubocop (0.77.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.6)
@@ -96,7 +96,7 @@ GEM
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     unicode-display_width (1.6.0)
-    zeitwerk (2.2.1)
+    zeitwerk (2.2.2)
 
 PLATFORMS
   ruby
