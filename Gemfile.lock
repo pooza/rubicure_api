@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/pooza/rubicure.git
-  revision: e3c112731372e9f490d116b51c58a81567f889d4
+  revision: b10bac9c7c27c0aaeee5d28b3bc9271ceec4fb05
   branch: master.pooza
   specs:
     rubicure (1.2.5.3)
@@ -40,7 +40,7 @@ GEM
     jaro_winkler (1.5.4)
     minitest (5.13.0)
     multi_json (1.14.1)
-    mustermann (1.1.0)
+    mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     nio4r (2.5.2)
     parallel (1.19.1)
@@ -52,7 +52,7 @@ GEM
     puma-heroku (1.1.0)
       puma (>= 3.0, < 5.0)
     rack (2.0.8)
-    rack-protection (2.0.7)
+    rack-protection (2.0.8.1)
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -73,17 +73,17 @@ GEM
     ruby-progressbar (1.10.1)
     ruby2_keywords (0.0.1)
     sengiri_yaml (0.0.3)
-    sinatra (2.0.7)
+    sinatra (2.0.8.1)
       mustermann (~> 1.0)
       rack (~> 2.0)
-      rack-protection (= 2.0.7)
+      rack-protection (= 2.0.8.1)
       tilt (~> 2.0)
-    sinatra-contrib (2.0.7)
+    sinatra-contrib (2.0.8.1)
       backports (>= 2.8.2)
       multi_json
       mustermann (~> 1.0)
-      rack-protection (= 2.0.7)
-      sinatra (= 2.0.7)
+      rack-protection (= 2.0.8.1)
+      sinatra (= 2.0.8.1)
       tilt (~> 2.0)
     slim (4.0.1)
       temple (>= 0.7.6, < 0.9)
@@ -127,4 +127,4 @@ RUBY VERSION
    ruby 2.6.5p114
 
 BUNDLED WITH
-   2.1.2
+   2.1.3
