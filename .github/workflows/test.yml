@@ -28,6 +28,7 @@ jobs:
       - name: bundle update
         run: |
           set -xe
+          gem install bundler
           bundle config path vendor/bundle
           bundle update --jobs $(nproc) --retry 3
         continue-on-error: ${{ matrix.allow_failures == 'true' }}
@@ -35,7 +36,6 @@ jobs:
       - name: Run test
         run: |
           set -xe
-          gem install bundler
           bundle exec test
         continue-on-error: ${{ matrix.allow_failures == 'true' }}
 
