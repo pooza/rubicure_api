@@ -9,6 +9,7 @@ AllCops:
   DisplayCopNames: true
   Exclude:
     - '**/._*'
+    - 'vendor/**/*'
   TargetRubyVersion: 2.5
 
 Layout/FirstArrayElementIndentation:
