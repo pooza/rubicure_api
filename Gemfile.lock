@@ -103,6 +103,7 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport
+  bundler (>= 2)
   holiday_jp
   icalendar
   onkcop!
