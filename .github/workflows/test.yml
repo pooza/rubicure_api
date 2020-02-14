@@ -35,6 +35,7 @@ jobs:
       - name: Run test
         run: |
           set -xe
+          gem install bundler
           bundle exec test
         continue-on-error: ${{ matrix.allow_failures == 'true' }}
 

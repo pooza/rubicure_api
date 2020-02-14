@@ -4,7 +4,6 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 ruby "2.5.7"
 
 gem "activesupport"
-gem "bundler", ">= 2"
 gem "holiday_jp"
 gem "icalendar"
 gem "puma"
