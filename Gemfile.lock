@@ -1,9 +1,9 @@
 GIT
-  remote: https://github.com/pooza/rubicure.git
-  revision: 5e39a675aef518f0521ec6d71e1c3ee7ba7eff19
+  remote: https://github.com/pooza/rubicure
+  revision: 87faef5dcc83bcd972bf6c7843a34c74c1ed26af
   branch: master.pooza
   specs:
-    rubicure (1.2.6.0)
+    rubicure (1.2.6.1)
       activesupport (>= 5.0.0)
       hashie (>= 2.0.5)
       sengiri_yaml (>= 0.0.2)
@@ -29,7 +29,6 @@ GEM
     ast (2.4.0)
     backports (3.16.0)
     concurrent-ruby (1.1.6)
-    foreman (0.87.0)
     hashie (4.1.0)
     holiday_jp (0.7.1)
     i18n (1.8.2)
@@ -49,8 +48,6 @@ GEM
     power_assert (1.1.5)
     puma (4.3.1)
       nio4r (~> 2.0)
-    puma-heroku (1.1.0)
-      puma (>= 3.0, < 5.0)
     rack (2.2.2)
     rack-protection (2.0.8.1)
       rack
@@ -72,6 +69,7 @@ GEM
       rubocop (>= 0.68.1)
     ruby-progressbar (1.10.1)
     ruby2_keywords (0.0.2)
+    rubydoctest (1.1.5)
     sengiri_yaml (0.0.3)
     sinatra (2.0.8.1)
       mustermann (~> 1.0)
@@ -105,17 +103,16 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport
-  foreman
   holiday_jp
   icalendar
   onkcop!
   puma
-  puma-heroku
   rack-test
   rake
   rollbar
   rubicure!
   rubocop-performance
+  rubydoctest
   sinatra
   sinatra-contrib
   slim
@@ -124,7 +121,7 @@ DEPENDENCIES
   timecop
 
 RUBY VERSION
-   ruby 2.6.5p114
+   ruby 2.5.7p206
 
 BUNDLED WITH
    2.1.4
