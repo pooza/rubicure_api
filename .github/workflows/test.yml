@@ -36,7 +36,7 @@ jobs:
       - name: Run test
         run: |
           set -xe
-          bundle exec test
+          bundle exec rake test
         continue-on-error: ${{ matrix.allow_failures == 'true' }}
 
       - name: Run lint
