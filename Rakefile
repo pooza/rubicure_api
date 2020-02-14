@@ -1,24 +1,32 @@
-require "rake/testtask"
-dir = File.expand_path(__dir__)
+APP_DIR = File.expand_path(__dir__).freeze
+$LOAD_PATH.unshift(File.join(APP_DIR, "app/lib"))
+ENV["BUNDLE_GEMFILE"] ||= File.join(APP_DIR, "Gemfile")
 
-Rake::TestTask.new do |t|
-  t.libs << "test"
-  t.test_files = FileList["test/*_test.rb"]
-  t.verbose = true
-  t.warning = false
+require "bundler/setup"
+
+desc "test"
+task :test do
+  Dir.glob(File.join(APP_DIR, "test/*.rb")).sort.each do |f|
+    require f
+  end
 end
 
-task :default => "test"
+desc "lint"
+task :lint do
+  sh "bundle exec rubocop"
+end
 
-desc 'start'
+desc "start"
 task :start do
-  sh 'puma'
+  sh "puma"
 end
 
-desc 'stop'
+desc "stop"
 task :stop do
-  Process.kill('TERM', File.read(File.join(dir, 'tmp/pids/puma.pid')).to_i) rescue nil
+  Process.kill("TERM", File.read(File.join(dir, "tmp/pids/puma.pid")).to_i)
+rescue
+  nil
 end
 
-desc 'restart'
+desc "restart"
 task :restart => [:stop, :start]

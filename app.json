@@ -1,9 +1,0 @@
-{
-  "name": "RubicureAPI",
-  "description": "API server for Rubicure",
-  "keywords": ["ruby", "Precure", "PrettyCure", "rubicure"],
-  "addons": [
-    "rollbar",
-    "papertrail"
-  ]
-}

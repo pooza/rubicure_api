@@ -61,7 +61,7 @@ class AppTest < Test::Unit::TestCase
 
       ical = last_response.body
       assert { ical.include?("DTSTART;VALUE=DATE:20170404") }
-      assert { ical.include?("SUMMARY:キュアホワイト（雪城ほのか）の誕生日") }
+      assert { ical.include?("SUMMARY:キュアホワイト（雪城 ほのか）の誕生日") }
     end
   end
 end
