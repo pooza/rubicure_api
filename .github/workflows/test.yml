@@ -1,47 +1,25 @@
 name: test
-
 on:
-  push:
-
+  - push
 env:
   CI: "true"
-  RUBYOPT: -EUTF-8
-
 jobs:
   test:
     runs-on: ubuntu-latest
-
-    container: ${{ matrix.ruby }}
-
-    strategy:
-      fail-fast: false
-
-      matrix:
-        ruby:
-          - ruby:2.5
-          - ruby:2.6
-          - ruby:2.7
-
     steps:
       - uses: actions/checkout@v2
-
-      - name: bundle update
+      - name: setup Ruby 2.7
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.7.x
+      - name: bundle install
         run: |
-          set -xe
           gem install bundler
-          bundle config path vendor/bundle
-          bundle update --jobs $(nproc) --retry 3
-        continue-on-error: ${{ matrix.allow_failures == 'true' }}
-
-      - name: Run test
-        run: |
-          set -xe
-          bundle exec rake test
-        continue-on-error: ${{ matrix.allow_failures == 'true' }}
-
+          bundle install --jobs 4 --retry 3
       - name: Run lint
         run: |
-          set -xe
           bundle exec rubocop
           bundle exec rubydoctest README.md
-        continue-on-error: ${{ matrix.allow_failures == 'true' }}
+      - name: Run test
+        run: |
+          bundle exec rake test

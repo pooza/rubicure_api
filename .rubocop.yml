@@ -17,3 +17,13 @@ Layout/FirstArrayElementIndentation:
 
 Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
