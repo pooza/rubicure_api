@@ -12,11 +12,62 @@ AllCops:
     - 'vendor/**/*'
   TargetRubyVersion: 2.5
 
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
 Layout/FirstArrayElementIndentation:
   EnforcedStyle: consistent
 
 Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
+
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+
+Lint/MixedRegexpCaptureTypes:
+  Enabled: true
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+Performance/AncestorsInclude:
+  Enabled: true
+
+Performance/BigDecimalWithNumericArgument:
+  Enabled: true
+
+Performance/RedundantSortBlock:
+  Enabled: true
+
+Performance/RedundantStringChars:
+  Enabled: true
+
+Performance/ReverseFirst:
+  Enabled: true
+
+Performance/SortReverse:
+  Enabled: true
+
+Performance/Squeeze:
+  Enabled: true
+
+Performance/StringInclude:
+  Enabled: true
+
+Style/AccessorGrouping:
+  Enabled: true
+
+Style/BisectedAttrAccessor:
+  Enabled: true
+
+Style/ExponentialNotation:
+  Enabled: true
 
 Style/HashEachMethods:
   Enabled: true
@@ -27,33 +78,18 @@ Style/HashTransformKeys:
 Style/HashTransformValues:
   Enabled: true
 
-Lint/RaiseException:
+Style/RedundantAssignment:
   Enabled: true
 
-Lint/StructNewOverride:
-  Enabled: true
-
-Layout/SpaceAroundMethodCallOperator:
-  Enabled: true
-
-Style/ExponentialNotation:
-  Enabled: true
-
-Layout/EmptyLinesAroundAttributeAccessor:
-  Enabled: true
-
-Style/SlicingWithRange:
-  Enabled: true
-
-Lint/DeprecatedOpenSSLConstant:
-  Enabled: true
-
-Lint/MixedRegexpCaptureTypes:
+Style/RedundantFetchBlock:
   Enabled: true
 
 Style/RedundantRegexpCharacterClass:
   Enabled: true
 
 Style/RedundantRegexpEscape:
+  Enabled: true
+
+Style/SlicingWithRange:
   Enabled: true
 
