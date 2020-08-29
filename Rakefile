@@ -23,9 +23,10 @@ end
 
 desc "stop"
 task :stop do
-  Process.kill("TERM", File.read(File.join(dir, "tmp/pids/puma.pid")).to_i)
-rescue
-  nil
+  Process.kill("TERM", File.read(File.join(APP_DIR, "tmp/pids/puma.pid")).to_i)
+rescue => e
+  warn e.message
+  exit 1
 end
 
 desc "restart"
