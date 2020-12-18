@@ -1,35 +1,35 @@
 GIT
   remote: https://github.com/pooza/rubicure
-  revision: 87e8940e14f255b1a9641bba7b6bf031e50bcb83
+  revision: dd8cb4bb63cfa6218e259c81718b13aa1cf517bc
   branch: master.pooza
   specs:
-    rubicure (1.3.4.0)
+    rubicure (1.3.5.0)
       activesupport (>= 5.0.0)
       hashie (>= 2.0.5)
       sengiri_yaml (>= 0.0.2)
 
 GIT
   remote: https://github.com/sue445/onkcop
-  revision: 4f7e76b93efff0b7d4d7d9058a487d435479b129
+  revision: d09f75a5eeb1969800cca160f653325771590fae
   branch: develop
   specs:
     onkcop (0.53.0.3)
       rubocop (>= 0.53.0)
-      rubocop-rspec (>= 1.24.0)
+      rubocop-rspec (>= 1.34.0)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (6.0.3.3)
+    activesupport (6.1.0)
       concurrent-ruby (~> 1.0, >= 1.0.2)
-      i18n (>= 0.7, < 2)
-      minitest (~> 5.1)
-      tzinfo (~> 1.1)
-      zeitwerk (~> 2.2, >= 2.2.2)
+      i18n (>= 1.6, < 2)
+      minitest (>= 5.1)
+      tzinfo (~> 2.0)
+      zeitwerk (~> 2.3)
     ast (2.4.1)
     concurrent-ruby (1.1.7)
     hashie (4.1.0)
-    holiday_jp (0.7.1)
+    holiday_jp (0.8.0)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
     icalendar (2.7.0)
@@ -40,11 +40,11 @@ GEM
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     nio4r (2.5.4)
-    parallel (1.19.2)
-    parser (2.7.1.5)
+    parallel (1.20.1)
+    parser (2.7.2.0)
       ast (~> 2.4.1)
     power_assert (1.2.0)
-    puma (4.3.6)
+    puma (4.3.7)
       nio4r (~> 2.0)
     rack (2.2.3)
     rack-protection (2.1.0)
@@ -53,25 +53,28 @@ GEM
       rack (>= 1.0, < 3)
     rainbow (3.0.0)
     rake (13.0.1)
-    regexp_parser (1.8.1)
+    regexp_parser (2.0.0)
     rexml (3.2.4)
-    rollbar (3.0.0)
-    rubocop (0.92.0)
+    rollbar (3.1.1)
+    rubocop (1.6.1)
       parallel (~> 1.10)
       parser (>= 2.7.1.5)
       rainbow (>= 2.2.2, < 4.0)
-      regexp_parser (>= 1.7)
+      regexp_parser (>= 1.8, < 3.0)
       rexml
-      rubocop-ast (>= 0.5.0)
+      rubocop-ast (>= 1.2.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 2.0)
-    rubocop-ast (0.7.1)
+    rubocop-ast (1.3.0)
       parser (>= 2.7.1.5)
-    rubocop-performance (1.8.1)
-      rubocop (>= 0.87.0)
+    rubocop-performance (1.9.1)
+      rubocop (>= 0.90.0, < 2.0)
       rubocop-ast (>= 0.4.0)
-    rubocop-rspec (1.43.2)
-      rubocop (~> 0.87)
+    rubocop-rake (0.5.1)
+      rubocop
+    rubocop-rspec (2.1.0)
+      rubocop (~> 1.0)
+      rubocop-ast (>= 1.1.0)
     ruby-progressbar (1.10.1)
     ruby2_keywords (0.0.2)
     rubydoctest (1.1.5)
@@ -92,15 +95,14 @@ GEM
       tilt (>= 2.0.6, < 2.1)
     syslog-logger (1.6.8)
     temple (0.8.2)
-    test-unit (3.3.6)
+    test-unit (3.3.7)
       power_assert
-    thread_safe (0.3.6)
     tilt (2.0.10)
-    timecop (0.9.1)
-    tzinfo (1.2.7)
-      thread_safe (~> 0.1)
+    timecop (0.9.2)
+    tzinfo (2.0.4)
+      concurrent-ruby (~> 1.0)
     unicode-display_width (1.7.0)
-    zeitwerk (2.4.0)
+    zeitwerk (2.4.2)
 
 PLATFORMS
   ruby
@@ -116,6 +118,7 @@ DEPENDENCIES
   rollbar
   rubicure!
   rubocop-performance
+  rubocop-rake
   rubydoctest
   sinatra
   sinatra-contrib
