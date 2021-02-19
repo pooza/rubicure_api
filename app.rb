@@ -37,7 +37,7 @@ class App < Sinatra::Base
 
   get "/series.json" do
     # convert to plain Hash
-    all_series = Precure.map {|s| Hash[s] }
+    all_series = Precure.map(&:to_h)
 
     json all_series, @json_options
   end
@@ -49,12 +49,12 @@ class App < Sinatra::Base
     series = Rubicure::Series.find(name)
 
     # convert to plain Hash
-    json Hash[series], @json_options
+    json series.to_h, @json_options
   end
 
   get "/girls.json" do
     # convert to plain Hash
-    girls = Precure.all.map {|g| Hash[g] }
+    girls = Precure.all.map(&:to_h)
 
     json girls, @json_options
   end
@@ -66,7 +66,7 @@ class App < Sinatra::Base
     girl = Rubicure::Girl.find(name)
 
     # convert to plain Hash
-    json Hash[girl], @json_options
+    json girl.to_h, @json_options
   end
 
   get "/girls/birthday.ics" do
@@ -101,7 +101,7 @@ class App < Sinatra::Base
         end
       end
 
-      Hash[date_girls.sort]
+      date_girls.sort.to_h
     end
 
     def birthday_ical(date_girls)
