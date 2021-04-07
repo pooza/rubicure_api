@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/pooza/rubicure
-  revision: 1184f3d5e258ba15c34610b73390d823429cf70e
+  revision: 8b2b67f81ae72f4ab73661240adc87b162002387
   branch: master.pooza
   specs:
-    rubicure (2.1.0.0)
+    rubicure (2.1.1.0)
       activesupport (>= 5.0.0)
       hashie (>= 2.0.5)
       sengiri_yaml (>= 0.0.2)
@@ -30,7 +30,7 @@ GEM
     concurrent-ruby (1.1.8)
     hashie (4.1.0)
     holiday_jp (0.8.0)
-    i18n (1.8.9)
+    i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     icalendar (2.7.1)
       ice_cube (~> 0.16)
@@ -41,7 +41,7 @@ GEM
       ruby2_keywords (~> 0.0.1)
     nio4r (2.5.7)
     parallel (1.20.1)
-    parser (3.0.0.0)
+    parser (3.0.1.0)
       ast (~> 2.4.1)
     power_assert (2.0.0)
     puma (4.3.7)
@@ -54,9 +54,9 @@ GEM
     rainbow (3.0.0)
     rake (13.0.3)
     regexp_parser (2.1.1)
-    rexml (3.2.4)
+    rexml (3.2.5)
     rollbar (3.1.2)
-    rubocop (1.12.0)
+    rubocop (1.12.1)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
@@ -105,7 +105,6 @@ GEM
     zeitwerk (2.4.2)
 
 PLATFORMS
-  ruby
   x86_64-freebsd-12
 
 DEPENDENCIES
