@@ -2,36 +2,256 @@ require:
   - rubocop-performance
   - rubocop-rake
 
-inherit_gem:
-  onkcop:
-    - "config/rubocop.yml"
-
 AllCops:
   AllowSymlinksInCacheRootDirectory: true
   DisplayCopNames: true
   NewCops: enable
+  Include:
+    - '**/*.rb'
+    - '**/Rakefile'
+    - '**/config.ru'
   Exclude:
     - '**/._*'
-    - 'vendor/**/*'
-  TargetRubyVersion: 2.5
+    - '**/.git/**/*'
+    - 'public/**/*'
+    - 'config/**/*'
+    - 'tmp/**/*'
+  TargetRubyVersion: 2.7
 
-Layout/EmptyLinesAroundAttributeAccessor:
+Naming/RescuedExceptionsVariableName:
+  PreferredName: e
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/DoubleNegation:
+  Enabled: false
+
+Style/FormatStringToken:
+  EnforcedStyle: template
+
+Style/Documentation:
+  Enabled: false
+
+Style/RedundantReturn:
+  Enabled: false
+
+Style/RescueStandardError:
+  Enabled: false
+
+Style/SymbolArray:
+  EnforcedStyle: brackets
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/WordArray:
+  EnforcedStyle: brackets
+
+Style/IdenticalConditionalBranches:
+  Exclude:
+    - 'test/*'
+
+Style/IfUnlessModifier:
+  Exclude:
+    - 'test/*'
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/FormatString:
+  EnforcedStyle: percent
+
+Style/ConditionalAssignment:
+  Enabled: false
+
+Style/YodaCondition:
+  Enabled: false
+
+Style/RescueModifier:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+Style/HashTransformValues:
   Enabled: true
 
-Layout/SpaceAroundMethodCallOperator:
+Style/HashEachMethods:
   Enabled: true
 
-Layout/FirstArrayElementIndentation:
-  EnforcedStyle: consistent
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/ExponentialNotation:
+  Enabled: true
+
+Style/SlicingWithRange:
+  Enabled: true
+
+Style/RedundantRegexpCharacterClass:
+  Enabled: true
+
+Style/RedundantRegexpEscape:
+  Enabled: true
+
+Style/RedundantFetchBlock:
+  Enabled: true
+
+Style/AccessorGrouping:
+  Enabled: true
+
+Style/BisectedAttrAccessor:
+  Enabled: true
+
+Style/RedundantAssignment:
+  Enabled: true
+
+Style/ArrayCoercion:
+  Enabled: true
+
+Style/CaseLikeIf:
+  Enabled: true
+
+Style/HashAsLastArrayItem:
+  Enabled: true
+
+Style/HashLikeCase:
+  Enabled: true
+
+Style/RedundantFileExtensionInRequire:
+  Enabled: true
+
+Style/ExplicitBlockArgument:
+  Enabled: true
+
+Style/GlobalStdStream:
+  Enabled: true
+
+Style/OptionalBooleanParameter:
+  Enabled: true
+
+Style/SingleArgumentDig:
+  Enabled: true
+
+Style/StringConcatenation:
+  Enabled: true
+
+Style/CombinableLoops: # (new in 0.90)
+  Enabled: true
+
+Style/KeywordParametersOrder: # (new in 0.90)
+  Enabled: true
+
+Style/RedundantSelfAssignment: # (new in 0.90)
+  Enabled: true
+
+Style/SoleNestedConditional: # (new in 0.89)
+  Enabled: true
+
+Layout/ParameterAlignment:
+  EnforcedStyle: with_fixed_indentation
 
 Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
 
-Lint/DeprecatedOpenSSLConstant:
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/FirstArgumentIndentation:
+  EnforcedStyle: consistent
+
+Layout/SpaceBeforeBlockBraces:
+  EnforcedStyle: space
+
+Layout/SpaceInsideBlockBraces:
+  EnforcedStyle: no_space
+  EnforcedStyleForEmptyBraces: no_space
+  SpaceBeforeBlockParameters: false
+
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+Layout/SpaceAroundMethodCallOperator:
   Enabled: true
 
-Lint/MixedRegexpCaptureTypes:
+Layout/LineLength:
+  Max: 100
+  Exclude:
+    - 'test/*'
+
+Layout/EmptyLinesAroundAttributeAccessor:
   Enabled: true
+
+Layout/EndOfLine:
+  EnforcedStyle: lf
+
+Metrics/AbcSize:
+  Max: 30
+  Exclude:
+    - 'test/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'test/*'
+    - '**/contract/*'
+    - '**/controller/*'
+    - 'app/task/*'
+    - '*.gemspec'
+
+Metrics/MethodLength:
+  Max: 20
+  Exclude:
+    - 'test/*'
+
+Metrics/ClassLength:
+  Max: 200
+  Exclude:
+    - 'test/*'
+    - '**/contract/*'
+    - '**/controller/*'
+    - '**/service/*'
+
+Metrics/ModuleLength:
+  Max: 200
+  Exclude:
+    - 'test/*'
+    - '**/contract/*'
+    - '**/controller/*'
+    - '**/service/*'
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+  Exclude:
+    - 'test/*'
+    - '**/contract/*'
+
+Metrics/PerceivedComplexity:
+  Max: 10
+  Exclude:
+    - 'test/*'
+    - '**/contract/*'
+
+Lint/AssignmentInCondition:
+  Enabled: false
+
+Lint/UnusedBlockArgument:
+  Enabled: false
+
+Lint/UnusedMethodArgument:
+  Enabled: false
 
 Lint/RaiseException:
   Enabled: true
@@ -39,10 +259,13 @@ Lint/RaiseException:
 Lint/StructNewOverride:
   Enabled: true
 
-Lint/BinaryOperatorWithIdenticalOperands:
+Lint/DuplicateElsifCondition:
   Enabled: true
 
-Lint/DuplicateElsifCondition:
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+
+Lint/BinaryOperatorWithIdenticalOperands:
   Enabled: true
 
 Lint/DuplicateRescueException:
@@ -69,6 +292,21 @@ Lint/TopLevelReturnWithArgument:
 Lint/UnreachableLoop:
   Enabled: true
 
+Lint/MixedRegexpCaptureTypes:
+  Enabled: true
+
+Lint/DuplicateRequire: # (new in 0.90)
+  Enabled: true
+
+Lint/EmptyFile: # (new in 0.90)
+  Enabled: true
+
+Lint/TrailingCommaInAttributeDeclaration: # (new in 0.90)
+  Enabled: true
+
+Lint/UselessMethodDefinition: # (new in 0.90)
+  Enabled: true
+
 Performance/AncestorsInclude:
   Enabled: true
 
@@ -93,66 +331,6 @@ Performance/Squeeze:
 Performance/StringInclude:
   Enabled: true
 
-Style/AccessorGrouping:
-  Enabled: true
-
-Style/BisectedAttrAccessor:
-  Enabled: true
-
-Style/ExponentialNotation:
-  Enabled: true
-
-Style/HashEachMethods:
-  Enabled: true
-
-Style/HashTransformKeys:
-  Enabled: true
-
-Style/HashTransformValues:
-  Enabled: true
-
-Style/RedundantAssignment:
-  Enabled: true
-
-Style/RedundantFetchBlock:
-  Enabled: true
-
-Style/RedundantRegexpCharacterClass:
-  Enabled: true
-
-Style/RedundantRegexpEscape:
-  Enabled: true
-
-Style/SlicingWithRange:
-  Enabled: true
-
-Style/ArrayCoercion:
-  Enabled: true
-
-Style/CaseLikeIf:
-  Enabled: true
-
-Style/ExplicitBlockArgument:
-  Enabled: true
-
-Style/GlobalStdStream:
-  Enabled: true
-
-Style/HashAsLastArrayItem:
-  Enabled: true
-
-Style/HashLikeCase:
-  Enabled: true
-
-Style/OptionalBooleanParameter:
-  Enabled: true
-
-Style/RedundantFileExtensionInRequire:
-  Enabled: true
-
-Style/SingleArgumentDig:
-  Enabled: true
-
-Style/StringConcatenation:
+Performance/Sum: # (new in 1.8)
   Enabled: true
 
