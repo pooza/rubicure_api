@@ -30,7 +30,10 @@ class App < Sinatra::Base
     @series = Precure.map(&:itself)
 
     date_girls = girl_birthdays(Date.today.year, Date.today.year + 1)
-    @date_girls = date_girls.select {|date, _| Date.today <= date && date <= Date.today + 90}
+    @date_girls = date_girls.select {|date, _| Date.today <= date && date <= Date.today + 120}
+
+    date_casts = cast_birthdays(Date.today.year, Date.today.year + 1)
+    @date_casts = date_casts.select {|date, _| Date.today <= date && date <= Date.today + 120}
 
     slim :index
   end
@@ -102,6 +105,20 @@ class App < Sinatra::Base
       end
 
       date_girls.sort.to_h
+    end
+
+    def cast_birthdays(from_year, to_year)
+      date_casts = {}
+      girls = Precure.all.select(&:have_cast_birthday?)
+
+      girls.each do |girl|
+        (from_year..to_year).each do |year|
+          date = Date.parse("#{year}/#{girl.cast_birthday}")
+          date_casts[date] = girl
+        end
+      end
+
+      date_casts.sort.to_h
     end
 
     def birthday_ical(date_girls)

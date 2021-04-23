@@ -1,4 +1,4 @@
-h1 List precure series
+h1 シリーズ
 
 a href="/series.json"
   | /series.json
@@ -13,8 +13,8 @@ table.table
     tr
       th.number No
       th series_name
-      th title
-      th path
+      th シリーズ名
+      th パス
   tbody
     - @series.each_with_index do |series, i|
       tr
@@ -29,7 +29,7 @@ table.table
             | pretty format
           |)
 
-h1 List precure girls
+h1 プリキュア
 
 a href="/girls.json"
   | /girls.json
@@ -44,8 +44,8 @@ table.table
     tr
       th.number No
       th girl_name
-      th precure_name
-      th path
+      th プリキュア名
+      th パス
   tbody
     - @girls.each_with_index do |girl, i|
       tr
@@ -62,22 +62,37 @@ table.table
 
 h2
   span.glyphicon.glyphicon-calendar aria-hidden="true"
-  | Precure birthday ical
+  | プリキュア誕生日のical
 
 a href="/girls/birthday.ics"
   | /girls/birthday.ics
 
-h2 Latest birthdays
+h2 プリキュアの誕生日
 
 table.table.table-striped.table-hover
   thead
     tr
       th.text-right Date
-      th Precure name
-      th Human name
+      th プリキュア名
+      th 本名
   tbody
     - @date_girls.each do |date, girl|
       tr class = week_class(date)
-        td.text-right = date.strftime("%Y/%m/%d(%a)")
+        td.text-right = date.strftime("%Y/%m/%d")
         td = girl.precure_name
         td = girl.human_name
+
+h2 キャストの誕生日
+
+table.table.table-striped.table-hover
+  thead
+    tr
+      th.text-right Date
+      th キャスト名
+      th プリキュア名
+  tbody
+    - @date_casts.each do |date, girl|
+      tr class = week_class(date)
+        td.text-right = date.strftime("%Y/%m/%d")
+        td = girl.cast_name
+        td = girl.precure_name
