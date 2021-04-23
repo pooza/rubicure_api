@@ -13,7 +13,6 @@ gem "rubicure", github: "pooza/rubicure", branch: "master.pooza"
 gem "sinatra"
 gem "sinatra-contrib"
 gem "slim"
-gem "syslog-logger"
 
 group :development do
   gem "rubocop-performance", require: false

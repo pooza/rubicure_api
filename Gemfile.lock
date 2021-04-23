@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/pooza/rubicure
-  revision: b8f4c110b64bde58fd608a89e031456bcd645e41
+  revision: e2c0319e7b389de5576638788283592586b920d4
   branch: master.pooza
   specs:
     rubicure (2.1.1.0)
@@ -81,7 +81,6 @@ GEM
     slim (4.1.0)
       temple (>= 0.7.6, < 0.9)
       tilt (>= 2.0.6, < 2.1)
-    syslog-logger (1.6.8)
     temple (0.8.2)
     test-unit (3.4.1)
       power_assert
@@ -110,7 +109,6 @@ DEPENDENCIES
   sinatra
   sinatra-contrib
   slim
-  syslog-logger
   test-unit
   timecop
 
