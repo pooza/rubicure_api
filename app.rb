@@ -74,8 +74,12 @@ class App < Sinatra::Base
 
   get '/girls/birthday.ics' do
     content_type :ics
-    date_girls = girl_birthdays(Date.today.year, Date.today.year + 2)
-    birthday_ical(date_girls)
+    girls_ical(girl_birthdays(Date.today.year, Date.today.year + 2))
+  end
+
+  get '/casts/birthday.ics' do
+    content_type :ics
+    casts_ical(cast_birthdays(Date.today.year, Date.today.year + 2))
   end
 
   before do
@@ -121,14 +125,30 @@ class App < Sinatra::Base
       date_casts.sort.to_h
     end
 
-    def birthday_ical(date_girls)
+    def girls_ical(date_girls)
       cal = Icalendar::Calendar.new
 
       cal.append_custom_property('X-WR-CALNAME;VALUE=TEXT', 'プリキュアの誕生日')
 
       date_girls.each do |date, girl|
         cal.event do |e|
-          e.summary = "#{girl.precure_name}（#{girl.human_name}）の誕生日"
+          e.summary = "#{girl.human_name}（#{girl.precure_name}）の誕生日"
+          e.dtstart = Icalendar::Values::Date.new(date)
+        end
+      end
+
+      cal.publish
+      cal.to_ical
+    end
+
+    def casts_ical(date_girls)
+      cal = Icalendar::Calendar.new
+
+      cal.append_custom_property('X-WR-CALNAME;VALUE=TEXT', 'キャストの誕生日')
+
+      date_girls.each do |date, girl|
+        cal.event do |e|
+          e.summary = "#{girl.cast_name}（#{girl.human_name}）の誕生日"
           e.dtstart = Icalendar::Values::Date.new(date)
         end
       end
