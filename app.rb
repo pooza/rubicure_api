@@ -77,15 +77,28 @@ class App < Sinatra::Base
     girls_ical(girl_birthdays(Date.today.year, Date.today.year + 2))
   end
 
-  get '/casts/birthday.ics' do
-    content_type :ics
-    casts_ical(cast_birthdays(Date.today.year, Date.today.year + 2))
-  end
-
   before do
     @json_options = {}
     @json_options[:json_encoder] = :to_pretty_json if params[:format] == 'pretty'
     @logger = Syslog::Logger.new('rubicure_api')
+  end
+
+  get '/v2/birthday/girls.ics' do
+    content_type :ics
+    girls_ical(girl_birthdays(Date.today.year, Date.today.year + 2))
+  end
+
+  get '/v2/birthday/girls.json' do
+    json girl_birthdays(Date.today.year, Date.today.year + 2)
+  end
+
+  get '/v2/birthday/casts.ics' do
+    content_type :ics
+    casts_ical(cast_birthdays(Date.today.year, Date.today.year + 2))
+  end
+
+  get '/v2/birthday/casts.json' do
+    json cast_birthdays(Date.today.year, Date.today.year + 2)
   end
 
   after do

@@ -65,9 +65,30 @@ class AppTest < Test::Unit::TestCase
     end
   end
 
-  test 'GET /casts/birthday.ics' do
+  test 'GET /v2/birthday/girls.json' do
+    get '/v2/birthday/girls.json'
+    assert {last_response.ok?}
+  end
+
+  test 'GET /v2/birthday/girls.ics' do
+    Timecop.freeze(Date.parse('2017-02-26')) do
+      get '/v2/birthday/girls.ics'
+      assert {last_response.ok?}
+
+      ical = last_response.body
+      assert {ical.include?('DTSTART;VALUE=DATE:20170404')}
+      assert {ical.include?('SUMMARY:雪城 ほのか（キュアホワイト）の誕生日')}
+    end
+  end
+
+  test 'GET /v2/birthday/casts.json' do
+    get '/v2/birthday/casts.json'
+    assert {last_response.ok?}
+  end
+
+  test 'GET /v2/birthday/casts.ics' do
     Timecop.freeze(Date.parse('2021-04-23')) do
-      get '/casts/birthday.ics'
+      get '/v2/birthday/casts.ics'
       assert {last_response.ok?}
 
       ical = last_response.body
