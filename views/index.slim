@@ -11,7 +11,7 @@ a href="/series.json?format=pretty"
 table.table
   thead
     tr
-      th.number No
+      th.number #
       th series_name
       th シリーズ名
       th パス
@@ -42,7 +42,7 @@ a href="/girls.json?format=pretty"
 table.table
   thead
     tr
-      th.number No
+      th.number #
       th girl_name
       th プリキュア名
       th パス
@@ -60,34 +60,30 @@ table.table
             | pretty format
           |)
 
-h2
-  span.glyphicon.glyphicon-calendar aria-hidden="true"
-  | プリキュア誕生日のical
+h2 プリキュアの誕生日
 
 a href="/girls/birthday.ics"
   | /girls/birthday.ics
 
-h2 プリキュアの誕生日
-
 table.table.table-striped.table-hover
   thead
     tr
-      th.text-right Date
-      th プリキュア名
+      th.text-right 日付
       th 本名
+      th プリキュア名
   tbody
     - @date_girls.each do |date, girl|
       tr class = week_class(date)
         td.text-right = date.strftime("%Y/%m/%d")
-        td = girl.precure_name
         td = girl.human_name
+        td = girl.precure_name
 
 h2 キャストの誕生日
 
 table.table.table-striped.table-hover
   thead
     tr
-      th.text-right Date
+      th.text-right 日付
       th キャスト名
       th プリキュア名
   tbody
