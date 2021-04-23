@@ -148,7 +148,7 @@ class App < Sinatra::Base
 
       date_girls.each do |date, girl|
         cal.event do |e|
-          e.summary = "#{girl.cast_name}（#{girl.human_name}）の誕生日"
+          e.summary = "#{girl.cast_name}（#{girl.precure_name}）の誕生日"
           e.dtstart = Icalendar::Values::Date.new(date)
         end
       end

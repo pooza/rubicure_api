@@ -61,7 +61,18 @@ class AppTest < Test::Unit::TestCase
 
       ical = last_response.body
       assert {ical.include?('DTSTART;VALUE=DATE:20170404')}
-      assert {ical.include?('SUMMARY:キュアホワイト（雪城 ほのか）の誕生日')}
+      assert {ical.include?('SUMMARY:雪城 ほのか（キュアホワイト）の誕生日')}
+    end
+  end
+
+  test 'GET /casts/birthday.ics' do
+    Timecop.freeze(Date.parse('2021-04-23')) do
+      get '/casts/birthday.ics'
+      assert {last_response.ok?}
+
+      ical = last_response.body
+      assert {ical.include?('DTSTART;VALUE=DATE:20210709')}
+      assert {ical.include?('SUMMARY:安野 希世乃（キュアソレイユ）の誕生日')}
     end
   end
 end
