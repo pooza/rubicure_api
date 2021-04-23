@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/pooza/rubicure
-  revision: 8b2b67f81ae72f4ab73661240adc87b162002387
+  revision: b8f4c110b64bde58fd608a89e031456bcd645e41
   branch: master.pooza
   specs:
     rubicure (2.1.1.0)
@@ -47,7 +47,7 @@ GEM
     regexp_parser (2.1.1)
     rexml (3.2.5)
     rollbar (3.1.2)
-    rubocop (1.12.1)
+    rubocop (1.13.0)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
@@ -58,8 +58,8 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.4.1)
       parser (>= 2.7.1.5)
-    rubocop-performance (1.10.2)
-      rubocop (>= 0.90.0, < 2.0)
+    rubocop-performance (1.11.0)
+      rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
     rubocop-rake (0.5.1)
       rubocop
