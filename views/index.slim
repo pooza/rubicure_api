@@ -1,4 +1,4 @@
-h1 Rubicure API (rubicure.precure.ml)
+h1 Rubicure API curesta-2.0.0
 
 h2 シリーズ
 
@@ -63,6 +63,34 @@ table.table
               a href="/girls/#{girl.girl_name}.json"
                 = "GET /girls/#{girl.girl_name}.json"
               span.deprecated （非推奨）
+
+h2 実況日程
+
+ul
+  li
+    a href="/v2/livecure.json"
+      | GET /v2/livecure.json
+
+table.table.table-striped.table-hover
+  thead
+    tr
+      th.text-right 日付
+      th プリキュア名
+      th キャスト名
+      th 本名
+  tbody
+    - @livecure_dates.each do |date, girl|
+      tr class = week_class(date)
+        - if girl.type == 'precure'
+          td.text-right = date.strftime("%Y/%m/%d")
+          td = girl.precure_name
+          td
+          td = girl.human_name
+        - elsif girl.type == 'cast'
+          td.text-right = date.strftime("%Y/%m/%d")
+          td = girl.precure_name
+          td = girl.cast_name
+          td
 
 h2 プリキュアの誕生日
 

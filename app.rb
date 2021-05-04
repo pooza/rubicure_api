@@ -22,12 +22,13 @@ class App < Sinatra::Base
   get '/' do
     @girls = Precure.all
     @series = Precure.map(&:itself)
-    @girls = girl_birthdays(Date.today.year, Date.today.year + 1).select do |date, _|
+    @date_girls = girl_birthdays(Date.today.year, Date.today.year + 1).select do |date, _|
       Date.today <= date && date <= Date.today + 120
     end
     @date_casts = cast_birthdays(Date.today.year, Date.today.year + 1).select do |date, _|
       Date.today <= date && date <= Date.today + 120
     end
+    @livecure_dates = livecure_dates
     slim :index
   end
 
@@ -71,6 +72,10 @@ class App < Sinatra::Base
     json Rubicure::Girl.find(name).to_h
   end
 
+  get '/v2/livecure.json' do
+    json livecure_dates
+  end
+
   get '/v2/birthday/girls.ics' do
     content_type :ics
     girls_ical(girl_birthdays(Date.today.year, Date.today.year + 2))
@@ -104,26 +109,38 @@ class App < Sinatra::Base
   helpers do # rubocop:disable Metrics/BlockLength
     def girl_birthdays(from_year, to_year)
       girls = {}
-      girls = Precure.all.select(&:have_birthday?)
-      girls.each do |girl|
+      Precure.all.select(&:have_birthday?).each do |girl|
         (from_year..to_year).each do |year|
-          date = Date.parse("#{year}/#{girl.birthday}")
-          girls[date] = girl
+          girls[Date.parse("#{year}/#{girl.birthday}")] = girl
         end
       end
       return girls.sort.to_h
     end
 
     def cast_birthdays(from_year, to_year)
-      date_casts = {}
-      girls = Precure.all.select(&:have_cast_birthday?)
-      girls.each do |girl|
+      casts = {}
+      Precure.all.select(&:have_cast_birthday?).each do |girl|
         (from_year..to_year).each do |year|
-          date = Date.parse("#{year}/#{girl.cast_birthday}")
-          date_casts[date] = girl
+          casts[Date.parse("#{year}/#{girl.cast_birthday}")] = girl
         end
       end
-      return date_casts.sort.to_h
+      return casts.sort.to_h
+    end
+
+    def livecure_dates
+      today = Date.today
+      year = today.year
+      return girl_birthdays(year, year + 1)
+        .select {|d, _| today <= d && d <= today + 60}
+        .select {|_, g| g.have_birthday?}
+        .merge(
+          cast_birthdays(year, year + 1)
+            .select {|d, _| today <= d && d <= today + 60}
+            .select {|_, g| !g.have_birthday? && g.have_cast_birthday?}
+        )
+        .sort
+        .map {|d, g| [d, g.merge(type: g.have_birthday? ? 'precure' : 'cast')]}
+        .to_h
     end
 
     def girls_ical(girls)
