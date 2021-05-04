@@ -12,3 +12,8 @@ th.number,
 td.number {
   text-align: right;
 }
+
+span.deprecated {
+  color: red;
+  font-size: 0.8em;
+}
