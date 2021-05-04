@@ -1,74 +1,110 @@
-h1 シリーズ
+h1 Rubicure API curesta-2.0.0
 
-a href="/series.json"
-  | /series.json
+h2 シリーズ
 
-|&nbsp;(
-a href="/series.json?format=pretty"
-  | pretty format
-|)
+ul
+  li
+    a href="/v2/series.json"
+      | GET /v2/series.json
+  li
+    a href="/series.json"
+      | GET /series.json
+    span.deprecated （非推奨）
 
 table.table
   thead
     tr
       th.number #
-      th series_name
       th シリーズ名
       th パス
   tbody
     - @series.each_with_index do |series, i|
       tr
         td.number = i + 1
-        td = series.series_name
         td = series.title
         td
-          a href="/series/#{series.series_name}.json"
-            = "/series/#{series.series_name}.json"
-          |&nbsp;(
-          a href="/series/#{series.series_name}.json?format=pretty"
-            | pretty format
-          |)
+          ul
+            li
+              a href="/v2/series/#{series.series_name}.json"
+                = "GET /v2/series/#{series.series_name}.json"
+            li
+              a href="/series/#{series.series_name}.json"
+                = "GET /series/#{series.series_name}.json"
+              span.deprecated （非推奨）
 
-h1 プリキュア
+h2 プリキュア
 
-a href="/girls.json"
-  | /girls.json
-
-|&nbsp;(
-a href="/girls.json?format=pretty"
-  | pretty format
-|)
+ul
+  li
+    a href="/v2/girls.json"
+      | GET /v2/girls.json
+  li
+    a href="/girls.json"
+      | GET /girls.json
+    span.deprecated （非推奨）
 
 table.table
   thead
     tr
       th.number #
-      th girl_name
       th プリキュア名
       th パス
   tbody
     - @girls.each_with_index do |girl, i|
       tr
         td.number = i + 1
-        td = girl.girl_name
         td = girl.precure_name
         td
-          a href="/girls/#{girl.girl_name}.json"
-            = "/girls/#{girl.girl_name}.json"
-          |&nbsp;(
-          a href="/girls/#{girl.girl_name}.json?format=pretty"
-            | pretty format
-          |)
+          ul
+            li
+              a href="/v2/girls/#{girl.girl_name}.json"
+                = "GET /v2/girls/#{girl.girl_name}.json"
+            li
+              a href="/girls/#{girl.girl_name}.json"
+                = "GET /girls/#{girl.girl_name}.json"
+              span.deprecated （非推奨）
+
+h2 実況日程
+
+ul
+  li
+    a href="/v2/livecure.json"
+      | GET /v2/livecure.json
+
+table.table.table-striped.table-hover
+  thead
+    tr
+      th.text-right 日付
+      th プリキュア名
+      th キャスト名
+      th 本名
+  tbody
+    - @livecure_dates.each do |date, girl|
+      tr class = week_class(date)
+        - if girl.type == 'precure'
+          td.text-right = date.strftime("%Y/%m/%d")
+          td = girl.precure_name
+          td
+          td = girl.human_name
+        - elsif girl.type == 'cast'
+          td.text-right = date.strftime("%Y/%m/%d")
+          td = girl.precure_name
+          td = girl.cast_name
+          td
 
 h2 プリキュアの誕生日
 
 ul
   li
     a href="/v2/birthday/girls.json"
-      | /v2/birthday/girls.json
+      | GET /v2/birthday/girls.json
   li
     a href="/v2/birthday/girls.ics"
-      | /v2/birthday/girls.ics
+      | GET /v2/birthday/girls.ics
+  li
+    a href="/girls/birthday.ics"
+      | GET /girls/birthday.ics
+    span.deprecated （非推奨）
 
 table.table.table-striped.table-hover
   thead
@@ -88,10 +124,10 @@ h2 キャストの誕生日
 ul
   li
     a href="/v2/birthday/casts.json"
-      | /v2/birthday/casts.json
+      | GET /v2/birthday/casts.json
   li
     a href="/v2/birthday/casts.ics"
-      | /v2/birthday/casts.ics
+      | GET /v2/birthday/casts.ics
 
 table.table.table-striped.table-hover
   thead

@@ -10,12 +10,6 @@ require 'date'
 require 'holiday_jp'
 require 'syslog/logger'
 
-class Object
-  def to_pretty_json
-    JSON.pretty_generate(self)
-  end
-end
-
 class App < Sinatra::Base
   use Rollbar::Middleware::Sinatra
 
@@ -28,59 +22,58 @@ class App < Sinatra::Base
   get '/' do
     @girls = Precure.all
     @series = Precure.map(&:itself)
-
-    date_girls = girl_birthdays(Date.today.year, Date.today.year + 1)
-    @date_girls = date_girls.select {|date, _| Date.today <= date && date <= Date.today + 120}
-
-    date_casts = cast_birthdays(Date.today.year, Date.today.year + 1)
-    @date_casts = date_casts.select {|date, _| Date.today <= date && date <= Date.today + 120}
-
+    @date_girls = girl_birthdays(Date.today.year, Date.today.year + 1).select do |date, _|
+      Date.today <= date && date <= Date.today + 120
+    end
+    @date_casts = cast_birthdays(Date.today.year, Date.today.year + 1).select do |date, _|
+      Date.today <= date && date <= Date.today + 120
+    end
+    @livecure_dates = livecure_dates
     slim :index
   end
 
-  get '/series.json' do
-    # convert to plain Hash
-    all_series = Precure.map(&:to_h)
-
-    json all_series, @json_options
+  get '/series.json' do # deprecated
+    redirect '/v2/series.json'
   end
 
-  get '/series/:name.json' do
+  get '/series/:name.json' do # deprecated
+    redirect "/v2/series/#{params[:name]}.json"
+  end
+
+  get '/girls.json' do # deprecated
+    redirect '/v2/girls.json'
+  end
+
+  get '/girls/:name.json' do # deprecated
+    redirect "/v2/girls/#{params[:name]}.json"
+  end
+
+  get '/girls/birthday.ics' do # deprecated
+    redirect '/v2/birthday/girls.ics'
+  end
+
+  get '/v2/series.json' do
+    json Precure.map(&:to_h)
+  end
+
+  get '/v2/series/:name.json' do
     name = params[:name].to_sym
     halt 404 unless Rubicure::Series.valid?(name)
-
-    series = Rubicure::Series.find(name)
-
-    # convert to plain Hash
-    json series.to_h, @json_options
+    json Rubicure::Series.find(name).to_h
   end
 
-  get '/girls.json' do
-    # convert to plain Hash
-    girls = Precure.all.map(&:to_h)
-
-    json girls, @json_options
+  get '/v2/girls.json' do
+    json Precure.all.map(&:to_h)
   end
 
-  get '/girls/:name.json' do
+  get '/v2/girls/:name.json' do
     name = params[:name].to_sym
     halt 404 unless Rubicure::Girl.valid?(name)
-
-    girl = Rubicure::Girl.find(name)
-
-    # convert to plain Hash
-    json girl.to_h, @json_options
+    json Rubicure::Girl.find(name).to_h
   end
 
-  get '/girls/birthday.ics' do
-    content_type :ics
-    girls_ical(girl_birthdays(Date.today.year, Date.today.year + 2))
-  end
-
-  before do
-    @json_options = {}
-    @json_options[:json_encoder] = :to_pretty_json if params[:format] == 'pretty'
-    @logger = Syslog::Logger.new('rubicure_api')
+  get '/v2/livecure.json' do
+    json livecure_dates
   end
 
   get '/v2/birthday/girls.ics' do
@@ -101,6 +94,10 @@ class App < Sinatra::Base
     json cast_birthdays(Date.today.year, Date.today.year + 2)
   end
 
+  before do
+    @logger = Syslog::Logger.new('rubicure_api')
+  end
+
   after do
     @logger.info({request: {path: request.path, params: @params}})
   end
@@ -111,75 +108,72 @@ class App < Sinatra::Base
 
   helpers do # rubocop:disable Metrics/BlockLength
     def girl_birthdays(from_year, to_year)
-      date_girls = {}
-      girls = Precure.all.select(&:have_birthday?)
-
-      girls.each do |girl|
+      girls = {}
+      Precure.all.select(&:have_birthday?).each do |girl|
         (from_year..to_year).each do |year|
-          date = Date.parse("#{year}/#{girl.birthday}")
-          date_girls[date] = girl
+          girls[Date.parse("#{year}/#{girl.birthday}")] = girl
         end
       end
-
-      date_girls.sort.to_h
+      return girls.sort.to_h
     end
 
     def cast_birthdays(from_year, to_year)
-      date_casts = {}
-      girls = Precure.all.select(&:have_cast_birthday?)
-
-      girls.each do |girl|
+      casts = {}
+      Precure.all.select(&:have_cast_birthday?).each do |girl|
         (from_year..to_year).each do |year|
-          date = Date.parse("#{year}/#{girl.cast_birthday}")
-          date_casts[date] = girl
+          casts[Date.parse("#{year}/#{girl.cast_birthday}")] = girl
         end
       end
-
-      date_casts.sort.to_h
+      return casts.sort.to_h
     end
 
-    def girls_ical(date_girls)
+    def livecure_dates
+      today = Date.today
+      year = today.year
+      return girl_birthdays(year, year + 1)
+        .select {|d, _| today <= d && d <= today + 60}
+        .select {|_, g| g.have_birthday?}
+        .merge(
+          cast_birthdays(year, year + 1)
+            .select {|d, _| today <= d && d <= today + 60}
+            .select {|_, g| !g.have_birthday? && g.have_cast_birthday?}
+        )
+        .sort
+        .map {|d, g| [d, g.merge(type: g.have_birthday? ? 'precure' : 'cast')]}
+        .to_h
+    end
+
+    def girls_ical(girls)
       cal = Icalendar::Calendar.new
-
       cal.append_custom_property('X-WR-CALNAME;VALUE=TEXT', 'プリキュアの誕生日')
-
-      date_girls.each do |date, girl|
+      girls.each do |date, girl|
         cal.event do |e|
           e.summary = "#{girl.human_name}（#{girl.precure_name}）の誕生日"
           e.dtstart = Icalendar::Values::Date.new(date)
         end
       end
-
       cal.publish
-      cal.to_ical
+      return cal.to_ical
     end
 
-    def casts_ical(date_girls)
+    def casts_ical(girls)
       cal = Icalendar::Calendar.new
-
       cal.append_custom_property('X-WR-CALNAME;VALUE=TEXT', 'キャストの誕生日')
-
-      date_girls.each do |date, girl|
+      girls.each do |date, girl|
         cal.event do |e|
           e.summary = "#{girl.cast_name}（#{girl.precure_name}）の誕生日"
           e.dtstart = Icalendar::Values::Date.new(date)
         end
       end
-
       cal.publish
-      cal.to_ical
+      return cal.to_ical
     end
 
     def week_class(time)
       date = time.to_date
-
-      if HolidayJp.holiday?(date) || date.sunday?
-        # red
-        'danger'
-      elsif date.saturday?
-        # blue
-        'info'
-      end
+      return 'danger' if HolidayJp.holiday?(date) || date.sunday?
+      return 'info' if date.saturday?
+      return nil
     end
   end
 end
