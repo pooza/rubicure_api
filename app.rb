@@ -49,7 +49,8 @@ class App < Sinatra::Base
   end
 
   get '/girls/birthday.ics' do # deprecated
-    redirect '/v2/birthday/girls.ics'
+    content_type :ics
+    girls_ical_v1(girl_birthdays_v1(Date.today.year, Date.today.year + 2))
   end
 
   get '/v2/series.json' do
@@ -111,7 +112,9 @@ class App < Sinatra::Base
       girls = {}
       Precure.all.select(&:have_birthday?).each do |girl|
         (from_year..to_year).each do |year|
-          girls[Date.parse("#{year}/#{girl.birthday}")] = girl
+          date = Date.parse("#{year}/#{girl.birthday}")
+          girls[date] ||= []
+          girls[date].push(girl)
         end
       end
       return girls.sort.to_h
@@ -121,7 +124,9 @@ class App < Sinatra::Base
       casts = {}
       Precure.all.select(&:have_cast_birthday?).each do |girl|
         (from_year..to_year).each do |year|
-          casts[Date.parse("#{year}/#{girl.cast_birthday}")] = girl
+          date = Date.parse("#{year}/#{girl.cast_birthday}")
+          casts[date] ||= []
+          casts[date].push(girl)
         end
       end
       return casts.sort.to_h
@@ -130,38 +135,67 @@ class App < Sinatra::Base
     def livecure_dates
       today = Date.today
       year = today.year
-      return girl_birthdays(year, year + 1)
-        .select {|d, _| today <= d && d <= today + 60}
-        .select {|_, g| g.have_birthday?}
-        .merge(
-          cast_birthdays(year, year + 1)
-            .select {|d, _| today <= d && d <= today + 60}
-            .select {|_, g| !g.have_birthday? && g.have_cast_birthday?}
-        )
-        .sort
-        .map {|d, g| [d, g.merge(type: g.have_birthday? ? 'precure' : 'cast')]}
-        .to_h
+      dates = girl_birthdays(year, year + 1).select {|d, _| today <= d && d <= today + 60}
+      dates.each do |date, girls|
+        girls.each do |girl|
+          girl[:type] = 'precure'
+        end
+      end
+      cast_birthdays(year, year + 1).each do |date, girls|
+        next unless today <= date && date <= today + 60
+        dates[date] ||= []
+        dates[date].concat(girls.reject(&:have_birthday?).map {|g| g.merge(type: 'cast')})
+      end
+      return dates.sort.to_h
     end
 
-    def girls_ical(girls)
+    def girls_ical(dates)
       cal = Icalendar::Calendar.new
       cal.append_custom_property('X-WR-CALNAME;VALUE=TEXT', 'プリキュアの誕生日')
-      girls.each do |date, girl|
-        cal.event do |e|
-          e.summary = "#{girl.human_name}（#{girl.precure_name}）の誕生日"
-          e.dtstart = Icalendar::Values::Date.new(date)
+      dates.each do |date, girls|
+        girls.each do |girl|
+          cal.event do |e|
+            e.summary = "#{girl.human_name}（#{girl.precure_name}）の誕生日"
+            e.dtstart = Icalendar::Values::Date.new(date)
+          end
         end
       end
       cal.publish
       return cal.to_ical
     end
 
-    def casts_ical(girls)
+    def casts_ical(dates)
       cal = Icalendar::Calendar.new
       cal.append_custom_property('X-WR-CALNAME;VALUE=TEXT', 'キャストの誕生日')
-      girls.each do |date, girl|
+      dates.each do |date, girls|
+        girls.each do |girl|
+          cal.event do |e|
+            e.summary = "#{girl.cast_name}（#{girl.precure_name}）の誕生日"
+            e.dtstart = Icalendar::Values::Date.new(date)
+          end
+        end
+      end
+      cal.publish
+      return cal.to_ical
+    end
+
+    def girl_birthdays_v1(from_year, to_year)
+      girls = {}
+      Precure.all.select(&:have_birthday?).each do |girl|
+        (from_year..to_year).each do |year|
+          date = Date.parse("#{year}/#{girl.birthday}")
+          girls[date] = girl
+        end
+      end
+      return girls.sort.to_h
+    end
+
+    def girls_ical_v1(dates)
+      cal = Icalendar::Calendar.new
+      cal.append_custom_property('X-WR-CALNAME;VALUE=TEXT', 'プリキュアの誕生日')
+      dates.each do |date, girl|
         cal.event do |e|
-          e.summary = "#{girl.cast_name}（#{girl.precure_name}）の誕生日"
+          e.summary = "#{girl.human_name}（#{girl.precure_name}）の誕生日"
           e.dtstart = Icalendar::Values::Date.new(date)
         end
       end

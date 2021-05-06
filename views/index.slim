@@ -1,4 +1,4 @@
-h1 Rubicure API curesta-2.0.0
+h1 Rubicure API curesta-2.0.1
 
 h2 シリーズ
 
@@ -79,18 +79,19 @@ table.table.table-striped.table-hover
       th キャスト名
       th 本名
   tbody
-    - @livecure_dates.each do |date, girl|
-      tr class = week_class(date)
-        - if girl.type == 'precure'
-          td.text-right = date.strftime("%Y/%m/%d")
-          td = girl.precure_name
-          td
-          td = girl.human_name
-        - elsif girl.type == 'cast'
-          td.text-right = date.strftime("%Y/%m/%d")
-          td = girl.precure_name
-          td = girl.cast_name
-          td
+    - @livecure_dates.each do |date, girls|
+      - girls.each do |girl|
+        tr class = week_class(date)
+          - if girl.type == 'precure'
+            td.text-right = date.strftime("%Y/%m/%d")
+            td = girl.precure_name
+            td
+            td = girl.human_name
+          - elsif girl.type == 'cast'
+            td.text-right = date.strftime("%Y/%m/%d")
+            td = girl.precure_name
+            td = girl.cast_name
+            td
 
 h2 プリキュアの誕生日
 
@@ -113,11 +114,12 @@ table.table.table-striped.table-hover
       th 本名
       th プリキュア名
   tbody
-    - @date_girls.each do |date, girl|
-      tr class = week_class(date)
-        td.text-right = date.strftime("%Y/%m/%d")
-        td = girl.human_name
-        td = girl.precure_name
+    - @date_girls.each do |date, girls|
+      - girls.each do |girl|
+        tr class = week_class(date)
+          td.text-right = date.strftime("%Y/%m/%d")
+          td = girl.human_name
+          td = girl.precure_name
 
 h2 キャストの誕生日
 
@@ -136,8 +138,9 @@ table.table.table-striped.table-hover
       th キャスト名
       th プリキュア名
   tbody
-    - @date_casts.each do |date, girl|
-      tr class = week_class(date)
-        td.text-right = date.strftime("%Y/%m/%d")
-        td = girl.cast_name
-        td = girl.precure_name
+    - @date_casts.each do |date, girls|
+      - girls.each do |girl|
+        tr class = week_class(date)
+          td.text-right = date.strftime("%Y/%m/%d")
+          td = girl.cast_name
+          td = girl.precure_name
