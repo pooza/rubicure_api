@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/pooza/rubicure
-  revision: e2c0319e7b389de5576638788283592586b920d4
+  revision: b9052109fb7e15934e533bc5c9bdfe7214ab6068
   branch: master.pooza
   specs:
-    rubicure (2.1.1.0)
+    rubicure (2.1.2.0)
       activesupport (>= 5.0.0)
       hashie (>= 2.0.5)
       sengiri_yaml (>= 0.0.2)
@@ -18,7 +18,7 @@ GEM
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
     ast (2.4.2)
-    concurrent-ruby (1.1.8)
+    concurrent-ruby (1.1.9)
     hashie (4.1.0)
     holiday_jp (0.8.0)
     i18n (1.8.10)
@@ -35,7 +35,7 @@ GEM
     parser (3.0.1.1)
       ast (~> 2.4.1)
     power_assert (2.0.0)
-    puma (4.3.7)
+    puma (4.3.8)
       nio4r (~> 2.0)
     rack (2.2.3)
     rack-protection (2.1.0)
@@ -46,17 +46,17 @@ GEM
     rake (13.0.3)
     regexp_parser (2.1.1)
     rexml (3.2.5)
-    rollbar (3.1.2)
-    rubocop (1.14.0)
+    rollbar (3.2.0)
+    rubocop (1.17.0)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml
-      rubocop-ast (>= 1.5.0, < 2.0)
+      rubocop-ast (>= 1.7.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.5.0)
+    rubocop-ast (1.7.0)
       parser (>= 3.0.1.1)
     rubocop-performance (1.11.3)
       rubocop (>= 1.7.0, < 2.0)
@@ -82,7 +82,7 @@ GEM
       temple (>= 0.7.6, < 0.9)
       tilt (>= 2.0.6, < 2.1)
     temple (0.8.2)
-    test-unit (3.4.1)
+    test-unit (3.4.4)
       power_assert
     tilt (2.0.10)
     timecop (0.9.4)
