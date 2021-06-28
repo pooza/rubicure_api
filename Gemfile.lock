@@ -61,8 +61,8 @@ GEM
     rubocop-performance (1.11.3)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
-    rubocop-rake (0.5.1)
-      rubocop
+    rubocop-rake (0.6.0)
+      rubocop (~> 1.0)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.4)
     rubydoctest (1.1.5)
@@ -93,6 +93,7 @@ GEM
 
 PLATFORMS
   x86_64-freebsd-12
+  x86_64-linux
 
 DEPENDENCIES
   activesupport
